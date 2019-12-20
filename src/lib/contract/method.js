@@ -200,6 +200,10 @@ export default class Method {
             // If privateKey is false, this won't be signed here. We assume sign functionality will be replaced.
             const signedTransaction = await this.tronWeb.trx.sign(transaction.transaction, privateKey);
 
+            console.log("-----------------------");
+            console.log(JSON.stringify(signedTransaction));
+            console.log("-----------------------");
+
             if (!signedTransaction.signature) {
                 if (!privateKey)
                     return callback('Transaction was not signed properly');
