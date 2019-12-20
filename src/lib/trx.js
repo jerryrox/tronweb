@@ -872,7 +872,7 @@ export default class Trx {
         }).catch(err => callback(err));
     }
 
-    async sendTransaction(to = false, amount = false, options = {}, callback = false, funcCallback = null) {
+    async sendTransaction(to = false, amount = false, options = {}, funcCallback = null, callback = false) {
         if (utils.isFunction(options)) {
             callback = options;
             options = {};
@@ -882,7 +882,7 @@ export default class Trx {
             options = {privateKey: options};
 
         if (!callback)
-            return this.injectPromise(this.sendTransaction, to, amount, options, true, funcCallback);
+            return this.injectPromise(this.sendTransaction, to, amount, options, funcCallback);
 
         if (!this.tronWeb.isAddress(to))
             return callback('Invalid recipient provided');

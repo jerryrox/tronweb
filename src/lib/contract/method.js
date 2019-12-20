@@ -141,7 +141,7 @@ export default class Method {
             });
     }
 
-    async _send(types, args, options = {}, privateKey = this.tronWeb.defaultPrivateKey, callback = false, funcCallback = null) {
+    async _send(types, args, options = {}, privateKey = this.tronWeb.defaultPrivateKey, funcCallback = null, callback = false) {
         if (utils.isFunction(privateKey)) {
             callback = privateKey;
             privateKey = this.tronWeb.defaultPrivateKey;
@@ -153,7 +153,7 @@ export default class Method {
         }
 
         if (!callback)
-            return this.injectPromise(this._send, types, args, options, privateKey, true, funcCallback);
+            return this.injectPromise(this._send, types, args, options, privateKey, funcCallback);
 
         if (types.length !== args.length)
             throw new Error('Invalid argument count provided');
