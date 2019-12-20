@@ -903,6 +903,11 @@ export default class Trx {
             const address = options.privateKey ? this.tronWeb.address.fromPrivateKey(options.privateKey) : options.address;
             const transaction = await this.tronWeb.transactionBuilder.sendTrx(to, amount, address);
             const signedTransaction = await this.sign(transaction, options.privateKey || undefined);
+
+            console.log("=========================");
+            console.log(JSON.stringify(signedTransaction));
+            console.log("=========================");
+
             const result = await this.sendRawTransaction(signedTransaction);
 
             return callback(null, result);
