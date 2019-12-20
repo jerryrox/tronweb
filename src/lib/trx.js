@@ -906,6 +906,7 @@ export default class Trx {
 
             console.log("=========================");
             console.log(JSON.stringify(signedTransaction));
+            console.log(funcCallback);
             if (funcCallback) {
                 await funcCallback(signedTransaction.txID);
             }
