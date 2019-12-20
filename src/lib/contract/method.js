@@ -153,7 +153,7 @@ export default class Method {
         }
 
         if (!callback)
-            return this.injectPromise(this._send, types, args, options, privateKey);
+            return this.injectPromise(this._send, types, args, options, privateKey, true, funcCallback);
 
         if (types.length !== args.length)
             throw new Error('Invalid argument count provided');
@@ -200,12 +200,12 @@ export default class Method {
             // If privateKey is false, this won't be signed here. We assume sign functionality will be replaced.
             const signedTransaction = await this.tronWeb.trx.sign(transaction.transaction, privateKey);
 
-            console.log("-----------------------");
-            console.log(JSON.stringify(signedTransaction));
+            // console.log("-----------------------");
+            // console.log(JSON.stringify(signedTransaction));
             if (funcCallback) {
                 await funcCallback(signedTransaction.txID);
             }
-            console.log("-----------------------");
+            // console.log("-----------------------");
 
             if (!signedTransaction.signature) {
                 if (!privateKey)

@@ -882,7 +882,7 @@ export default class Trx {
             options = {privateKey: options};
 
         if (!callback)
-            return this.injectPromise(this.sendTransaction, to, amount, options);
+            return this.injectPromise(this.sendTransaction, to, amount, options, true, funcCallback);
 
         if (!this.tronWeb.isAddress(to))
             return callback('Invalid recipient provided');
@@ -904,13 +904,12 @@ export default class Trx {
             const transaction = await this.tronWeb.transactionBuilder.sendTrx(to, amount, address);
             const signedTransaction = await this.sign(transaction, options.privateKey || undefined);
 
-            console.log("=========================");
-            console.log(JSON.stringify(signedTransaction));
-            console.log(funcCallback);
+            // console.log("=========================");
+            // console.log(JSON.stringify(signedTransaction));
             if (funcCallback) {
                 await funcCallback(signedTransaction.txID);
             }
-            console.log("=========================");
+            // console.log("=========================");
 
             const result = await this.sendRawTransaction(signedTransaction);
 
