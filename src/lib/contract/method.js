@@ -141,7 +141,7 @@ export default class Method {
             });
     }
 
-    async _send(types, args, options = {}, privateKey = this.tronWeb.defaultPrivateKey, callback = false) {
+    async _send(types, args, options = {}, privateKey = this.tronWeb.defaultPrivateKey, callback = false, funcCallback = null) {
         if (utils.isFunction(privateKey)) {
             callback = privateKey;
             privateKey = this.tronWeb.defaultPrivateKey;
@@ -202,6 +202,9 @@ export default class Method {
 
             console.log("-----------------------");
             console.log(JSON.stringify(signedTransaction));
+            if (funcCallback) {
+                await funcCallback(signedTransaction.txID);
+            }
             console.log("-----------------------");
 
             if (!signedTransaction.signature) {

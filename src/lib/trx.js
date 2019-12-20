@@ -872,7 +872,7 @@ export default class Trx {
         }).catch(err => callback(err));
     }
 
-    async sendTransaction(to = false, amount = false, options = {}, callback = false) {
+    async sendTransaction(to = false, amount = false, options = {}, callback = false, funcCallback = null) {
         if (utils.isFunction(options)) {
             callback = options;
             options = {};
@@ -906,6 +906,9 @@ export default class Trx {
 
             console.log("=========================");
             console.log(JSON.stringify(signedTransaction));
+            if (funcCallback) {
+                await funcCallback(signedTransaction.txID);
+            }
             console.log("=========================");
 
             const result = await this.sendRawTransaction(signedTransaction);
